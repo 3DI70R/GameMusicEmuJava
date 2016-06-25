@@ -6,6 +6,8 @@ import com.sun.jna.ptr.PointerByReference;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.ByteBuffer;
+import java.nio.ByteOrder;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -176,10 +178,9 @@ public class GameMusicEmu {
 
         checkError(lib.gme_play(gme, size, shortBuffer));
 
+        ByteBuffer buffer = ByteBuffer.wrap(b).order(ByteOrder.LITTLE_ENDIAN);
         for(int i = 0; i < size; i++) {
-            int index = (i + off) * 2;
-            b[index] = (byte) shortBuffer[i];
-            b[index + 1] = (byte) (shortBuffer[i] >> 8);
+            buffer.putShort(shortBuffer[i]);
         }
 
         return len;
