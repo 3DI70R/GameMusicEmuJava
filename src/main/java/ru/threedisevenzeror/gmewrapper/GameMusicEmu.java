@@ -178,8 +178,8 @@ public class GameMusicEmu {
 
         for(int i = 0; i < size; i++) {
             int index = (i + off) * 2;
-            b[index] = (byte) (shortBuffer[i] >> 8);
-            b[index + 1] = (byte) shortBuffer[i];
+            b[index] = (byte) shortBuffer[i];
+            b[index + 1] = (byte) (shortBuffer[i] >> 8);
         }
 
         return len;
