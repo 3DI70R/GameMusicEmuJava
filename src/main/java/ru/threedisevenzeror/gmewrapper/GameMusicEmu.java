@@ -63,13 +63,18 @@ public class GameMusicEmu {
     protected int fadeStartMsec;
     protected short[] shortBuffer;
 
-    public GameMusicEmu(int sampleRate) {
-        this.sampleRate = sampleRate;
-        stereoDepth = 1;
+    public GameMusicEmu() {
+        sampleRate = 44100;
+        stereoDepth = 0;
         tempo = 1;
         ignoreSilence = true;
         accuracy = true;
         fadeStartMsec = Integer.MAX_VALUE;
+    }
+
+    public GameMusicEmu(int sampleRate) {
+        this();
+        setSampleRate(sampleRate);
     }
 
     @Override
@@ -86,6 +91,10 @@ public class GameMusicEmu {
         gme = ref.getValue();
 
         applySettings();
+    }
+
+    public void setSampleRate(int sampleRate) {
+        this.sampleRate = sampleRate;
     }
 
     public void loadFile(InputStream stream) throws IOException {
